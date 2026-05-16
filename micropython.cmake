@@ -1,6 +1,6 @@
 include(${MICROPY_DIR}/py/py.cmake)
 
-set(MICROPY_FROZEN_MANIFEST ${CMAKE_CURRENT_LIST_DIR}/manifest.py)
+# set(MICROPY_FROZEN_MANIFEST ${CMAKE_CURRENT_LIST_DIR}/manifest.py)
 
 add_library(usermod_mp_camera INTERFACE)
 
