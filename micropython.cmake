@@ -56,9 +56,14 @@ if (MP_CAMERA_DRIVER_VERSION)
     )
 endif()
 
-# Camera module strings are not suitable for compression and cause size increase
-target_compile_definitions(usermod_mp_camera INTERFACE 
-    MICROPY_ROM_TEXT_COMPRESSION=0
+# Camera module strings are not suitable for compression and cause size increase.
+# Scoped to just these source files (rather than INTERFACE) so it doesn't affect
+# the whole build. -U before -D avoids a "redefined" warning against the
+# MICROPY_ROM_TEXT_COMPRESSION=(1) set globally by py/mkrules.cmake.
+set_source_files_properties(
+    ${CMAKE_CURRENT_LIST_DIR}/src/modcamera.c
+    ${CMAKE_CURRENT_LIST_DIR}/src/modcamera_api.c
+    PROPERTIES COMPILE_OPTIONS "-UMICROPY_ROM_TEXT_COMPRESSION;-DMICROPY_ROM_TEXT_COMPRESSION=0"
 )
 
 # Link the camera module with the main usermod target
